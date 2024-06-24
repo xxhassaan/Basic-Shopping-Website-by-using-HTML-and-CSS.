@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://t3.ftcdn.net/jpg/02/71/77/56/360_F_271775672_yo8ZgraN2IHGbfqP2k0PsLjwvmatUNUJ.jpg'); /* Replace with your image URL */
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: auto;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+            padding: 0 20px;
+        }
+
+        .cart-item-details h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .cart-item-details p {
+            margin: 0;
+        }
+
+        .cart-summary {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cart-summary input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .cart-summary button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-summary button:hover {
+            background-color: #555;
+        }
+
+        .success-message {
+            text-align: center;
+            margin-top: 20px;
+            color: green;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Shopping Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be displayed here -->
+        </div>
+        <div class="cart-summary">
+            <h3>Shipping Address</h3>
+            <input type="text" id="address" placeholder="Enter your address" required>
+            <button onclick="completePurchase()">Complete Purchase</button>
+        </div>
+        <div id="success-message" class="success-message" style="display: none;">
+            Product has been bought successfully!
+        </div>
+    </div>
+
+    <script>
+        // Retrieve cart items from local storage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Function to display cart items
+        function displayCart() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            cartItemsDiv.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                cartItemsDiv.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <h3>${item.name}</h3>
+                            <p>$${item.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                `;
+                total += item.price;
+            });
+
+            // Display the total amount
+            cartItemsDiv.innerHTML += `
+                <div class="cart-item">
+                    <div class="cart-item-details">
+                        <h3>Total Amount</h3>
+                        <p>$${total.toFixed(2)}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to complete the purchase
+        function completePurchase() {
+            const address = document.getElementById('address').value;
+            if (address) {
+                localStorage.setItem('purchasedProducts', JSON.stringify(cart));
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                document.getElementById('success-message').style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            } else {
+                alert('Please enter your address');
+            }
+        }
+
+        // Display cart items on initial load
+        document.addEventListener('DOMContentLoaded', displayCart);
+    </script>
+</body>
+</html>

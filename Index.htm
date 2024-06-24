@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop with us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://img.freepik.com/free-photo/woman-holds-fashion-shopping-bag-beauty_1150-13673.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em 0;
+        }
+
+        header h1 {
+            display: inline;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: inline;
+            float: right;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px 0;
+        }
+
+        main h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            width: 30%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-card h3 {
+            margin: 10px 0;
+        }
+
+        .product-card p {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .product-card button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-card button:hover {
+            background-color: #555;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .admin-tools {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .admin-tools button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .admin-tools button:hover {
+            background-color: #555;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background-color: #555;
+        }
+
+        .login-form a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .reset-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .reset-form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .reset-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .reset-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .reset-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .reset-form button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-page" class="login-container">
+        <div class="login-form">
+            <h2>Login</h2>
+            <form id="login-form" onsubmit="login(event)">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <a href="#" onclick="showResetPassword()">Forgot Password?</a>
+        </div>
+    </div>
+
+    <div id="reset-page" class="reset-container" style="display: none;">
+        <div class="reset-form">
+            <h2>Reset Password</h2>
+            <form id="reset-form" onsubmit="resetPassword(event)">
+                <input type="password" id="new-password" placeholder="New Password" required>
+                <button type="submit">Reset Password</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        <header>
+        <div class="container">
+            <h1>Shopping for Everyone</h1>
+            <nav>
+                <ul>
+                    <li><a href="file:///E:/Software%20Engineering%20Final%20Project/Index.htm">Home</a></li>
+                    <li><a href="file:///E:/Software%20Engineering%20Final%20Project/cart.html">Cart</a></li>
+                    <li><a href="file:///E:/Software%20Engineering%20Final%20Project/about.html">About</a></li>
+                    <li><a href="file:///E:/Software%20Engineering%20Final%20Project/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+        <main>
+            <div class="container">
+                <h2>Our Products</h2>
+                <div class="product-grid" id="product-grid">
+                    <!-- Products will be displayed here -->
+                </div>
+            </div>
+
+            <div class="admin-tools">
+                <button onclick="addProduct()">Add Product</button>
+                <button onclick="modifyProduct()">Modify Product</button>
+                <button onclick="deleteProduct()">Delete Product</button>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Shopping for Everyone. All rights reserved.   Great people always buy Great Stuff</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let products = [
+            { id: 1, name: 'Denim Jeans', price: 150.00, image: 'https://thumbs.dreamstime.com/b/blue-jeans-isolated-white-34440719.jpg' },
+            { id: 2, name: 'T-shirts (All Kinds)', price: 40.00, image: 'https://www.houseofblanks.com/cdn/shop/files/SS-Black-Front_e1471c9b-2874-4cfe-82ab-4bc2f5f2aa1a.png?v=1699459070&width=1946' },
+            { id: 3, name: 'Running shoes', price: 200.00, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-SOciELFI80D8rdDtdiw-JYoIllXDh_7PTw&s' }
+        ];
+  // Function to display products on the page
+        function displayProducts() {
+            const productGrid = document.getElementById('product-grid');
+            productGrid.innerHTML = '';
+            products.forEach(product => {
+                productGrid.innerHTML += `
+                    <div class="product-card" data-id="${product.id}">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>$${product.price.toFixed(2)}</p>
+                        <button onclick="addToCart(${product.id})">Add to Cart</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Function to add a product to the cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                alert('Product added to cart: ' + product.name);
+                // Implement your cart functionality here
+            }
+        }
+
+function displayCart() {
+    const cartItemsDiv = document.getElementById('cart-items');
+    cartItemsDiv.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+        cartItemsDiv.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-item-details">
+                    <h3>${item.name}</h3>
+                    <p>$${item.price.toFixed(2)}</p>
+                </div>
+            </div>
+        `;
+        total += item.price;
+    });
+    document.getElementById('total-price').innerText = `$${total.toFixed(2)}`;
+}
+
+function completePurchase() {
+    const address = document.getElementById('address').value;
+    if (address) {
+        localStorage.setItem('purchasedProducts', JSON.stringify(cart));
+        cart = [];
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('success-message').style.display = 'block';
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2000);
+    } else {
+        alert('Please enter your address');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', displayCart);
+        // Function to handle login
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === 'password') {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                displayProducts();
+            } else {
+                alert('Invalid login credentials');
+            }
+        }
+
+        // Function to add a new product with user input prompts
+        function addProduct() {
+            const name = prompt("Enter the name of the product:");
+            const price = parseFloat(prompt("Enter the price of the product:"));
+            const image = prompt("Enter the URL of the product image:");
+
+            if (name && !isNaN(price) && image) {
+                const id = products.length ? products[products.length - 1].id + 1 : 1;
+                products.push({ id, name, price, image });
+                displayProducts();
+                alert('Product added successfully!');
+            } else {
+                alert('Please provide valid input for all fields');
+            }
+        }
+
+        // Function to modify an existing product with user input prompts
+        function modifyProduct() {
+            const name = prompt("Enter the name of the product you want to modify:");
+            const product = products.find(product => product.name === name);
+
+            if (product) {
+                const newName = prompt("Enter the new name of the product (Leave empty to keep current):", product.name);
+                const newPrice = parseFloat(prompt("Enter the new price of the product (Leave empty to keep current):", product.price));
+                const newImage = prompt("Enter the new URL of the product image (Leave empty to keep current):", product.image);
+
+                if ((newName !== null || newName !== "") || !isNaN(newPrice) || (newImage !== null || newImage !== "")) {
+                    product.name = newName !== null && newName !== "" ? newName : product.name;
+                    product.price = !isNaN(newPrice) ? newPrice : product.price;
+                    product.image = newImage !== null && newImage !== "" ? newImage : product.image;
+                    displayProducts();
+                    alert('Product modified successfully!');
+                } else {
+                    alert('No changes made.');
+                }
+            } else {
+                alert('Product not found');
+            }
+        }
+
+        // Function to delete a product by name
+        function deleteProduct() {
+            const name = prompt("Enter the name of the product you want to delete:");
+            const productIndex = products.findIndex(product => product.name === name);
+
+            if (productIndex !== -1) {
+                products.splice(productIndex, 1);
+                displayProducts();
+                alert('Product deleted successfully!');
+            } else {
+                alert('Product not found');
+            }
+        }
+
+        // Display products on initial load
+        document.addEventListener('DOMContentLoaded', displayProducts);
+    </script>
+</body>
+</html>
